@@ -1,27 +1,41 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
 import {NavLink, useHistory} from 'react-router-dom'
 import {AuthContext} from '../context/AuthContext'
 
 export const Navbar = () => {
-  const history = useHistory()
-  const auth = useContext(AuthContext)
+    const [isMenu, setIsMenu] = useState(false)
+    const history = useHistory()
+    const auth = useContext(AuthContext)
 
-  const logoutHandler = event => {
-    event.preventDefault()
-    auth.logout()
-    history.push('/')
-  }
+    const logoutHandler = event => {
+        event.preventDefault()
+        auth.logout()
+        history.push('/')
+    }
 
-  return (
-    <nav>
-      <div className="nav-wrapper blue darken-1" style={{ padding: '0 2rem' }}>
-        <span className="brand-logo">Сокращение ссылок</span>
-        <ul id="nav-mobile" className="right hide-on-med-and-down">
-          <li><NavLink to="/create">Создать</NavLink></li>
-          <li><NavLink to="/links">Ссылки</NavLink></li>
-          <li><a href="/" onClick={logoutHandler}>Выйти</a></li>
-        </ul>
-      </div>
-    </nav>
-  )
+    const onClickMenu = event => {
+        event.preventDefault()
+        setIsMenu(!isMenu)
+    }
+
+    const onHideMenu = () => {
+        setIsMenu(false)
+    }
+
+    return (
+        <nav>
+            <div className="nav-wrapper blue darken-1">
+                <span className="brand-logo" style={{padding: '0 2rem', whiteSpace: 'nowrap'}}>Сокращение ссылок</span>
+                <a href="" onClick={onClickMenu} className="sidenav-trigger right" data-target="mobile-nav">
+                    <span className="large" style={{fontSize: '140%'}}>{isMenu ? <span>&#10005;</span> :
+                        <span>&#9776;</span>}</span>
+                </a>
+                <ul id="nav-mobile" onClick={onHideMenu} className={`right hide-on-med-and-down ${isMenu ? 'isMenu' : ''}`}>
+                    <li><NavLink to="/create">Создать</NavLink></li>
+                    <li><NavLink to="/links">Ссылки</NavLink></li>
+                    <li><a href="/" onClick={logoutHandler}>Выйти</a></li>
+                </ul>
+            </div>
+        </nav>
+    )
 }

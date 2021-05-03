@@ -18,3 +18,26 @@ input.yellow-input:focus {
   border-bottom: 1px solid #ffeb3b!important;
   box-shadow: 0 1px 0 0 #ffeb3b!important;
 }
+/*-------------------------------*/
+@media only screen and (max-width: 992px) {
+  nav .brand-logo {
+    font-size: 130%;
+  }
+  .hide-on-med-and-down.isMenu {
+    display: flex !important;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    z-index: 200;
+  }
+  .hide-on-med-and-down.isMenu li a {
+    color: black;
+    display: flex;
+    border-top: 1px solid #596972;
+  }
+}
+
