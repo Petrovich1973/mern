@@ -9,6 +9,10 @@ export const LinksPage = () => {
   const {loading, request} = useHttp()
   const {token} = useContext(AuthContext)
 
+  const deleteOne = item => {
+    setLinks(links.filter(l => l._id !== item._id))
+  }
+
   const fetchLinks = useCallback(async () => {
     try {
       const fetched = await request('/api/link', 'GET', null, {
@@ -28,7 +32,7 @@ export const LinksPage = () => {
 
   return (
     <>
-      {!loading && <LinksList links={links} />}
+      {!loading && <LinksList deleteOne={deleteOne} links={links} />}
     </>
   )
 }

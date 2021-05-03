@@ -50,4 +50,17 @@ router.get('/:id', auth, async (req, res) => {
   }
 })
 
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    const existing = await Link.findById(req.params.id)
+    if(existing) {
+      await Link.deleteOne({_id: req.params.id})
+      return res.json(existing)
+    }
+    res.status(404).json({ message: 'Ссылки не существет' })
+  } catch (e) {
+    res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
+  }
+})
+
 module.exports = router
